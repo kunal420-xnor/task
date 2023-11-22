@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="globals.css" />
+    <link rel="stylesheet" href="login.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  </head>
+  <body>
+    <div class="macbook-pro">
+      <div class="overlap-wrapper">
+        <div class="overlap">
+          <div class="header-blue-shade">
+            <img class="social-icons" src="img/image.png" />
+            <img class="img" src="img/image2.png" />
+            <img class="social-icons-2" src="img/image3.png" />
+            <img class="vector" src="img/Vector.png" />
+            <div class="text-wrapper">Terms of Service</div>
+            <div class="div">Privacy Policy</div>
+            <div class="element">
+              99xxx 9xxxx&nbsp;&nbsp; ,&nbsp;&nbsp; 8xxxx74578xx
+            </div>
+            <div class="text-wrapper-2">multinationalsprays@gmaol.com</div>
+            <p class="s-suhana-niwas">
+              s/773, suhana niwas ,<br />opposite lig bank,000666
+            </p>
+            <div class="text-wrapper-3">Hi, Welcome!</div>
+            <img class="image" src="img/image 296.png" />
+            <div class="input">
+              <div class="overlap-group">
+                <label for="phoneNumber" class="text-wrapper-4"
+                  >Phone number</label
+                >
+                <input id="phoneNumber" type="text" />
+                <img class="smartphone" src="img/smartphone.png" />
+              </div>
+            </div>
+
+            <button id="getOtp">GET OTP</button>
+            <div class="OTP-inpit">
+              <div class="overlap-2">
+                <input type="number" maxlength="1" class="otp-input" />
+                <input type="number" maxlength="1" class="otp-input" />
+                <input type="number" maxlength="1" class="otp-input" />
+                <input type="number" maxlength="1" class="otp-input" />
+              </div>
+            </div>
+
+            <button id="verifyOtp">VERIFY</button>
+            <div class="text-wrapper-7">Resend Again</div>
+            <div class="text-wrapper-8">Didn’t receive any code?</div>
+            <p class="p">Request new code in 00:30s</p>
+            <header class="header">
+              <div class="logo">
+                <div class="text-wrapper-9">Logo.</div>
+              </div>
+              <div class="navbar">
+                <div class="text-wrapper-10">Home</div>
+                <div class="text-wrapper-10">Product Details</div>
+                <div class="text-wrapper-10">CustomerFeedback</div>
+                <p class="about-us-buy-now-get">
+                  &nbsp;&nbsp;About
+                  us&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Buy
+                  Now&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Free Samples
+                </p>
+              </div>
+              <button class="button-2">
+                <div class="overlap-group-2">
+                  <div class="text-wrapper-11">LOGIN</div>
+                </div>
+              </button>
+            </header>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      $(document).ready(() => {
+        $('#getOtp').click(() => {
+          const phoneNumber = $('#phoneNumber').val();
+          $.post('/send-otp', { phone: phoneNumber }, (data) => {
+            alert('OTP sent!');
+          });
+        });
+
+        $('#verifyOtp').click(() => {
+          const phoneNumber = $('#phoneNumber').val();
+          const otp = $('.otp-input')
+            .map(function () {
+              return $(this).val();
+            })
+            .get()
+            .join('');
+          $.post(
+            '/validate-otp',
+            { phoneNumber: phoneNumber, otp: otp },
+            (data) => {
+              if (data === 'OTP validated successfully') {
+                alert('Logged in!');
+                window.location.href = 'home.html';
+              } else {
+                alert('Invalid OTP. Try again.');
+              }
+            }
+          );
+        });
+      });
+    </script>
+  </body>
+</html>
